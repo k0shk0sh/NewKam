@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="192dp"
+    android:background="@drawable/header_background"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:padding="@dimen/spacing_xs_large">
+
+    <ImageView
+        android:id="@+id/image_avatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginBottom="@dimen/spacing_xs_large"
+        android:adjustViewBounds="true"
+        android:minHeight="@dimen/keyline_1"
+        android:src="@mipmap/ic_launcher"/>
+
+
+    <com.fastaccess.ui.widgets.FontTextView
+        android:id="@+id/username"
+        style="@style/TextAppearance.AppCompat.Large.Inverse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textColor="@color/white"/>
+
+    <com.fastaccess.ui.widgets.FontTextView
+        android:id="@+id/email"
+        style="@style/TextAppearance.AppCompat.Body1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="Application Manager"/>
+
+</LinearLayout>

@@ -1,0 +1,10 @@
+*.iml
+.gradle
+/local.properties
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+/.idea/
+/app/google-services.json
+/app/src/main/res/values/secrets.xml

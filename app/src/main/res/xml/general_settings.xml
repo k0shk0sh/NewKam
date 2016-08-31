@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <android.support.v7.preference.PreferenceCategory
+        android:title="General Settings">
+
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:key="auto_backup"
+            android:textColor="@color/white"
+            android:title="Auto Backup New Installed Apps Apps"/>
+    </android.support.v7.preference.PreferenceCategory>
+    <android.support.v7.preference.PreferenceCategory
+        android:title="About">
+        <android.support.v7.preference.Preference
+            android:key="size"
+            android:textColor="@color/white"
+            android:title="Backup &amp; Restore Folder Size"/>
+        <android.support.v7.preference.Preference
+            android:key="version"
+            android:textColor="@color/white"
+            android:title="Application Version"/>
+
+        <android.support.v7.preference.Preference
+            android:key="libraries"
+            android:textColor="@color/white"
+            android:title="Open Source Libraries"/>
+
+    </android.support.v7.preference.PreferenceCategory>
+</android.support.v7.preference.PreferenceScreen>

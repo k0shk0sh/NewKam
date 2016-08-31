@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">KAM</string>
+    <string name="linear_layout_manager" translatable="false">com.fastaccess.ui.widgets.recyclerview.layout_manager.LinearManager</string>
+    <string name="grid_layout_manager" translatable="false">com.fastaccess.ui.widgets.recyclerview.layout_manager.GridManager</string>
+    <string name="staggered_layout_manager" translatable="false">com.fastaccess.ui.widgets.recyclerview.layout_manager.StaggeredManager</string>
+    <string name="scroll_behavior">@string/appbar_scrolling_view_behavior</string>
+    <string name="skip">Skip</string>
+    <string name="in_progress">In Progress, Please Wait…</string>
+    <string name="close">Close</string>
+    <string name="action">Action</string>
+    <string name="settings">Settings</string>
+    <string name="confirm_message">Are you sure?</string>
+    <string name="cancel">Cancel</string>
+    <string name="reload">Reload</string>
+    <string name="no_data">No Data.</string>
+    <string name="search">Search</string>
+    <string name="no_apps">No Applications</string>
+    <string name="backup">Backup</string>
+    <string name="denied_permission">Permission is needed so KAM can function at its best. Please allow the permission manually from the settings screen.</string>
+    <string name="open_settings_screen">Open Settings Screen.</string>
+    <string name="terminate_app">Terminate App</string>
+    <string name="write_sdcard_explanation">This permission is needed to save your backups into the SDCARD</string>
+    <string name="write_sdcard_msg">We need this permission to be able to store your backups into your sdcard.</string>
+    <string name="write_sdcard_title">Write To SDCARD Permission</string>
+    <string name="read_sdcard_explanation">This permission is needed to be able to restore your backups.</string>
+    <string name="read_sdcard_msg">We need this permission to be able to restore your backups from your sdcard.</string>
+    <string name="read_sdcard_title">Read From SDCARD Permission</string>
+    <string name="clear">Clear</string>
+    <string name="select_all">Select All</string>
+    <string name="clear_all">Clear All</string>
+</resources>

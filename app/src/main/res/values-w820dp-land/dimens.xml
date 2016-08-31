@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="layout_margin">84dp</dimen>
+    <integer name="num_columns">7</integer>
+    <dimen name="fab_margin">24dp</dimen>
+</resources>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    android:id="@+id/drawerLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/appbar_search_elevation"/>
+
+        <io.codetail.widget.RevealFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/scroll_behavior">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/layout_margin"
+                android:layout_marginStart="@dimen/layout_margin"
+                android:paddingBottom="@dimen/spacing_xs_large"
+                android:paddingTop="@dimen/spacing_xs_large">
+
+                <include layout="@layout/staggered_list"/>
+            </FrameLayout>
+        </io.codetail.widget.RevealFrameLayout>
+
+        <com.pluscubed.recyclerfastscroll.RecyclerFastScroller
+            android:id="@+id/fastScroll"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:layout_marginBottom="@dimen/spacing_xs_large"
+            android:layout_marginTop="@dimen/spacing_xs_large"/>
+    </android.support.design.widget.CoordinatorLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/navigation"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/drawer_header"
+        app:itemIconTint="?colorAccent"
+        app:itemTextColor="@color/primary_light"
+        app:menu="@menu/drawer_menu"
+        app:theme="@style/NavigationViewTheme"/>
+
+</android.support.v4.widget.DrawerLayout>
