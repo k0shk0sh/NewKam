@@ -2,6 +2,7 @@ package com.fastaccess.helper;
 
 import android.content.Context;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
 import java.io.File;
@@ -15,46 +16,13 @@ import java.util.List;
 public class FileHelper {
 
     private static String folderName;
-
-    private static String dataFolderName;
+    private String TAG = this.getClass().getSimpleName();
 
     public static void initFolderName(String fName) {
         folderName = Environment.getExternalStorageDirectory() + "/" + fName;
     }
 
-    public static void initPrivateFolder(Context context, String folderName) {
-        dataFolderName = context.getCacheDir().getPath() + "/" + folderName;
-    }
-
-    public static File privateFolder() {
-        if (InputHelper.isEmpty(dataFolderName)) {
-            throw new NullPointerException("dataFolderName is null call initPrivateFolder() first");
-        }
-        File file = new File(dataFolderName);
-        if (!file.exists()) file.mkdir();
-        return file;
-    }
-
-    public static File generatePrivateFile() {
-        if (InputHelper.isEmpty(dataFolderName)) {
-            throw new NullPointerException("dataFolderName is null call initPrivateFolder() first");
-        }
-        File file = new File(dataFolderName, ".nomedia");
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-                file.mkdir();
-            }
-        }
-        return new File(privateFolder(), generateFileName());
-    }
-
     public static File folderName() {
-        if (InputHelper.isEmpty(folderName)) {
-            throw new NullPointerException("dataFolderName is null call initPrivateFolder() first");
-        }
         File file = new File(folderName);
         if (!file.exists())
             file.mkdir();
@@ -65,29 +33,22 @@ public class FileHelper {
         return folderName;
     }
 
-    public static String getBasePrivateFolder() {
-        return dataFolderName;
-    }
-
     public static File getFile(String path) {
         return new File(path);
     }
 
-    private static String getJpgImagePath(String path) {
-        return path + ".jpg";
+    private static String getPng(String path) {
+        return path + ".png";
     }
 
     public static boolean deleteFile(String path) {
-        if (!InputHelper.isEmpty(path)) {
+        if (!TextUtils.isEmpty(path)) {
             File file = new File(path);
             if (file.exists()) {
                 return file.delete();
             } else {
                 file = new File(folderName(), path);
                 if (file.exists()) {
-                    return file.delete();
-                } else {
-                    file = new File(privateFolder(), path);
                     return file.delete();
                 }
             }
@@ -101,24 +62,16 @@ public class FileHelper {
                 File file = new File(folderName(), path);
                 if (file.exists()) {
                     file.delete();
-                } else {
-                    File file1 = new File(privateFolder(), path);
-                    if (file1.exists()) {
-                        file1.delete();
-                    }
                 }
             }
         }
     }
 
-    public static String generateFileName() {
-        return getJpgImagePath("IMG-" + String.valueOf(System.currentTimeMillis()));
+    public static String generateFileName(String packageName) {
+        return getPng(packageName);
     }
 
-    public static File generateFile() {
-        if (InputHelper.isEmpty(folderName)) {
-            throw new NullPointerException("dataFolderName is null call initPrivateFolder() first");
-        }
+    public static File generateFile(String path) {
         File file = new File(folderName, ".nomedia");
         if (!file.exists()) {
             try {
@@ -128,11 +81,47 @@ public class FileHelper {
                 file.mkdir();
             }
         }
-        return new File(folderName(), generateFileName());
+        return new File(folderName(), path + ".apk");
+    }
+
+    private static void generateDefaultFile() {
+        File file = new File(folderName);
+        if (!file.exists()) {
+            file.mkdir();
+        }
+    }
+
+    public static File generateZipFile(String name) {
+        File file = new File(folderName, ".nomedia");
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+                file.mkdir();
+            }
+        }
+        return new File(folderName(), name + ".zip");
+    }
+
+    public static File generateFolder(String name) {
+        File file = new File(folderName);
+        if (!file.exists()) {
+            file.mkdir();
+        }
+        File folderName = new File(file, name);
+        if (!folderName.exists()) {
+            folderName.mkdirs();
+        }
+        return folderName;
+    }
+
+    public static String getCacheFile(Context context, String packageName) {
+        return context.getCacheDir().getPath() + "/" + generateFileName(packageName);
     }
 
     public static boolean exists(String path) {
-        return new File(path).exists();
+        return getFile(path).exists();
     }
 
     public static List<File> getFiles(File dir) {

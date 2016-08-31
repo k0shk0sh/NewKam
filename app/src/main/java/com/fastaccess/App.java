@@ -2,6 +2,7 @@ package com.fastaccess;
 
 import android.app.Application;
 
+import com.fastaccess.helper.FileHelper;
 import com.fastaccess.helper.IconCache;
 import com.fastaccess.helper.PrefHelper;
 import com.fastaccess.helper.TypeFaceHelper;
@@ -27,6 +28,7 @@ public class App extends Application {
     @Override public void onCreate() {
         super.onCreate();
         instance = this;
+        FileHelper.initFolderName(getString(R.string.app_name));
         PrefHelper.init(this);
         TypeFaceHelper.generateTypeface(this);
         CustomActivityOnCrash.setRestartActivityClass(MainView.class);

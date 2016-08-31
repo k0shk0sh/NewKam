@@ -86,6 +86,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
+        android:contentDescription="@string/menu"
         android:src="@drawable/ic_menu"
         app:fabSize="normal"
         app:rippleColor="?colorPrimary"/>
@@ -127,6 +128,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start|center"
+                        android:contentDescription="@string/share"
                         android:foreground="?selectableItemBackgroundBorderless"
                         android:padding="@dimen/spacing_xs_large"
                         android:scaleType="centerCrop"
@@ -137,6 +139,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start|center"
+                        android:contentDescription="@string/extract"
                         android:foreground="?selectableItemBackgroundBorderless"
                         android:padding="@dimen/spacing_xs_large"
                         android:scaleType="centerCrop"
@@ -147,10 +150,22 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start|center"
+                        android:contentDescription="@string/backup"
                         android:foreground="?selectableItemBackgroundBorderless"
                         android:padding="@dimen/spacing_xs_large"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_backup"/>
+
+                    <com.fastaccess.ui.widgets.ForegroundImageView
+                        android:id="@+id/uninstall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center"
+                        android:contentDescription="@string/uninstall"
+                        android:foreground="?selectableItemBackgroundBorderless"
+                        android:padding="@dimen/spacing_xs_large"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_trash"/>
                 </LinearLayout>
 
                 <com.fastaccess.ui.widgets.ForegroundImageView

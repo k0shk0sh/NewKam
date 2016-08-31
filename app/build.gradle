@@ -88,6 +88,7 @@ dependencies {
     }
     compile 'com.github.pluscubed:recycler-fast-scroll:0.3.2@aar'
     compile 'com.bowyer.app:fab-toolbar:1.1.0@aar'
+    compile 'commons-io:commons-io:2.4'
     apt "frankiesardo:icepick-processor:3.1.0"
     apt "com.jakewharton:butterknife-compiler:8.0.1"
 }
