@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="?android:listPreferredItemHeight"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/image_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:minHeight="38dp"
+        android:paddingEnd="?android:listPreferredItemPaddingEnd"
+        android:paddingStart="?android:listPreferredItemPaddingStart"
+        android:scaleType="centerCrop"
+        tools:src="@mipmap/ic_type_file"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingEnd="?android:listPreferredItemPaddingEnd"
+        android:paddingStart="?android:listPreferredItemPaddingStart">
+
+        <TextView
+            android:id="@+id/fname"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="Title"/>
+
+        <TextView
+            android:id="@+id/ftype"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="12sp"
+            tools:text="12MB"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/deleteFolder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:minHeight="34dp"
+        android:paddingEnd="?android:listPreferredItemPaddingEnd"
+        android:paddingStart="?android:listPreferredItemPaddingStart"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_action_name"/>
+</LinearLayout>

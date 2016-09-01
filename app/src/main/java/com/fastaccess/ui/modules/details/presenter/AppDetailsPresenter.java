@@ -11,11 +11,10 @@ import android.support.design.widget.AppBarLayout;
 
 import com.fastaccess.R;
 import com.fastaccess.data.dao.AppsModel;
+import com.fastaccess.helper.ApkHelper;
 import com.fastaccess.helper.FileHelper;
 import com.fastaccess.ui.base.mvp.presenter.BasePresenter;
 import com.fastaccess.ui.modules.details.model.AppDetailsMvp;
-
-import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 
@@ -46,41 +45,35 @@ public class AppDetailsPresenter extends BasePresenter<AppDetailsMvp.View> imple
     }
 
     @Override public void onShare(@NonNull Context context, @NonNull AppsModel app) {
-        File file = FileHelper.generateFile(app.getAppName());
-        try {
-            File path = getView().getApkFile();
-            if (path.exists()) {
-                FileUtils.copyFile(path, file);
-                getView().onShowMessage(context.getString(R.string.file_extracted_successfully) + " ( " + file.getPath() + " )");
+        File dest = FileHelper.generateFile(app.getAppName());
+        File src = getView().getApkFile();
+        if (src.exists()) {
+            boolean extracted = ApkHelper.extractApk(src, dest);
+            if (extracted) {
+                getView().onShowMessage(context.getString(R.string.file_extracted_successfully) + " ( " + dest.getPath() + " )");
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_SEND);
-                intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+                intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(dest));
                 intent.setType("application/vnd.android.package-archive");
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(Intent.createChooser(intent, "Share " + app.getAppName()));
-            } else {
-                getView().onShowMessage(R.string.app_file_error);
+                return;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            getView().onShowMessage(e.getMessage());
         }
+        getView().onShowMessage(R.string.app_file_error);
     }
 
     @Override public void onExtract(@NonNull Context context, @NonNull AppsModel app) {
-        File file = FileHelper.generateFile(app.getAppName());
-        try {
-            File path = getView().getApkFile();
-            if (path.exists()) {
-                FileUtils.copyFile(path, file);
-                getView().onShowMessage(context.getString(R.string.file_extracted_successfully) + " ( " + file.getPath() + " )");
-            } else {
-                getView().onShowMessage(R.string.app_file_error);
+        File dest = FileHelper.generateFile(app.getAppName());
+        File src = getView().getApkFile();
+        if (src.exists()) {
+            boolean extracted = ApkHelper.extractApk(src, dest);
+            if (extracted) {
+                getView().onShowMessageToOpenFile(R.string.file_extracted_successfully);
+                return;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            getView().onShowMessage(e.getMessage());
         }
+        getView().onShowMessage(R.string.app_file_error);
     }
 
     @Override public void onUninstall(@NonNull Activity activity, @NonNull AppsModel app) {
@@ -106,4 +99,5 @@ public class AppDetailsPresenter extends BasePresenter<AppDetailsMvp.View> imple
         boolean show = Math.abs(appBarLayout.getTotalScrollRange() + verticalOffset) < 100;
         getView().onAppbarScrolled(show);
     }
+
 }

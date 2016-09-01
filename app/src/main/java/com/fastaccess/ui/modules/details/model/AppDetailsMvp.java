@@ -33,6 +33,8 @@ public interface AppDetailsMvp {
 
         void onShowMessage(@NonNull String msg);
 
+        void onShowMessageToOpenFile(@StringRes int resId);
+
         @NonNull File getApkFile();
     }
 

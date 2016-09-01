@@ -11,6 +11,8 @@ import android.support.annotation.Nullable;
 
 import com.fastaccess.ui.modules.details.view.PermissionsView;
 
+import org.apache.commons.io.FileUtils;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -75,5 +77,15 @@ public class ApkHelper {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static boolean extractApk(@NonNull File src, @NonNull File dest) {
+        try {
+            FileUtils.copyFile(src, dest);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

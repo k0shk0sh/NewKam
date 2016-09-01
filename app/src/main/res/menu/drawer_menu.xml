@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group>
         <item
-            android:id="@+id/suggestions"
-            android:icon="@drawable/ic_empty_glass"
-            android:title="Whatever"/>
+            android:id="@+id/kamFolder"
+            android:icon="@drawable/ic_folder"
+            android:title="@string/kam_folder"/>
     </group>
     <item android:title="@string/action">
         <menu>
@@ -12,10 +12,6 @@
                 android:id="@+id/settings"
                 android:icon="@drawable/ic_settings"
                 android:title="@string/settings"/>
-            <item
-                android:id="@+id/logout"
-                android:icon="@drawable/ic_logout"
-                android:title="Whatever"/>
         </menu>
     </item>
 </menu>

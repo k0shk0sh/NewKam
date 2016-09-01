@@ -14,6 +14,7 @@ import android.view.View;
 import com.fastaccess.App;
 import com.fastaccess.R;
 import com.fastaccess.data.dao.AppsModel;
+import com.fastaccess.kam.filebrowser.view.FilePickerDialog;
 import com.fastaccess.provider.loader.AppsLoader;
 import com.fastaccess.ui.base.mvp.presenter.BasePresenter;
 import com.fastaccess.ui.modules.main.model.MainMvp;
@@ -37,13 +38,11 @@ public class MainPresenter extends BasePresenter<MainMvp.View> implements MainMv
     @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         getView().closeOpenDrawer(true);
         switch (item.getItemId()) {
-            case R.id.logout:
-                return true;
             case R.id.settings:
                 getView().onNavigateTo(MainMvp.SETTINGS);
                 return true;
-            case R.id.suggestions:
-                getView().onNavigateTo(MainMvp.SUGGESTIONS);
+            case R.id.kamFolder:
+                getView().onNavigateTo(MainMvp.KAM_FOLDER);
                 return true;
         }
         return false;
@@ -61,10 +60,9 @@ public class MainPresenter extends BasePresenter<MainMvp.View> implements MainMv
         switch (mode) {
             case MainMvp.SETTINGS:
                 break;
-            case MainMvp.SUGGESTIONS:
-                manager.beginTransaction()
-//                        .replace(R.id.container, SuggestionsView.getInstance(), String.valueOf(mode))
-                        .commit();
+            case MainMvp.KAM_FOLDER:
+                FilePickerDialog dialog = new FilePickerDialog();
+                dialog.show(manager, "FilePickerDialog");
                 break;
         }
     }

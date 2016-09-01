@@ -21,10 +21,10 @@ import java.util.List;
  */
 
 public interface MainMvp {
-    int SUGGESTIONS = 0;
+    int KAM_FOLDER = 0;
     int SETTINGS = 2;
 
-    @IntDef({SUGGESTIONS, SETTINGS})
+    @IntDef({KAM_FOLDER, SETTINGS})
     @Retention(RetentionPolicy.SOURCE) @interface NavigationMode {}
 
 

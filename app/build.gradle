@@ -91,6 +91,7 @@ dependencies {
     compile 'commons-io:commons-io:2.4'
     apt "frankiesardo:icepick-processor:3.1.0"
     apt "com.jakewharton:butterknife-compiler:8.0.1"
+    compile project(path: ':fileBrowser')
 }
 apply plugin: "com.google.gms.google-services"
 

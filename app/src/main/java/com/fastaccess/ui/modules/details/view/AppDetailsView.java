@@ -25,6 +25,7 @@ import com.fastaccess.data.dao.AppsModel;
 import com.fastaccess.helper.ApkHelper;
 import com.fastaccess.helper.DateHelper;
 import com.fastaccess.helper.ViewHelper;
+import com.fastaccess.kam.filebrowser.view.FilePickerDialog;
 import com.fastaccess.ui.adapter.PermissionsAdapter;
 import com.fastaccess.ui.base.BaseActivity;
 import com.fastaccess.ui.modules.details.model.AppDetailsMvp;
@@ -190,6 +191,17 @@ public class AppDetailsView extends BaseActivity implements AppDetailsMvp.View {
 
     @Override public void onShowMessage(@NonNull String msg) {
         Snackbar.make(appbar, msg, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override public void onShowMessageToOpenFile(@StringRes int resId) {
+        Snackbar.make(appbar, resId, Snackbar.LENGTH_LONG)
+                .setAction(getString(R.string.open_folder), new View.OnClickListener() {
+                    @Override public void onClick(View v) {
+                        FilePickerDialog dialog = new FilePickerDialog();
+                        dialog.show(getSupportFragmentManager(), "FilePickerDialog");
+                    }
+                })
+                .show();
     }
 
     @NonNull @Override public File getApkFile() {

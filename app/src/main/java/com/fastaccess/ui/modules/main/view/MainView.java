@@ -102,9 +102,6 @@ public class MainView extends BaseActivity implements MainMvp.View {
     @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
-        if (savedInstanceState == null) {
-            getPresenter().navigateTo(getSupportFragmentManager(), MainMvp.SUGGESTIONS);
-        }
         setToolbarIcon(R.drawable.ic_menu);
         navigation.setNavigationItemSelectedListener(getPresenter());
         recycler.setEmptyView(empty, null);
