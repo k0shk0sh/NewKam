@@ -15,12 +15,23 @@
         android:orientation="vertical"
         app:layout_scrollFlags="scroll|enterAlways">
 
+
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:background="?colorPrimary"/>
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/topProgress"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?colorPrimary"
+        android:indeterminate="true"
+        android:indeterminateBehavior="repeat"
+        android:visibility="gone"/>
 
     <View
         android:layout_width="match_parent"

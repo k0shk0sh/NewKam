@@ -36,6 +36,16 @@
                 app:layout_collapseMode="pin"/>
         </android.support.design.widget.CollapsingToolbarLayout>
 
+        <ProgressBar
+            android:id="@+id/topProgress"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?colorPrimary"
+            android:indeterminate="true"
+            android:indeterminateBehavior="repeat"
+            android:visibility="gone"/>
+
         <View
             android:id="@+id/shadow"
             android:layout_width="match_parent"

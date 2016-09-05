@@ -29,13 +29,11 @@ public interface AppDetailsMvp {
 
         void onAppUninstalled();
 
-        void onShowMessage(@StringRes int resId);
-
-        void onShowMessage(@NonNull String msg);
-
-        void onShowMessageToOpenFile(@StringRes int resId);
-
         @NonNull File getApkFile();
+
+        void showMessage(@NonNull String msg);
+
+        void showMessage(@StringRes int resId);
     }
 
     interface Presenter extends AppBarLayout.OnOffsetChangedListener {

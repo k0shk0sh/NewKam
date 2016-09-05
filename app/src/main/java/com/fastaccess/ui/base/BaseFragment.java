@@ -4,13 +4,12 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
+import com.fastaccess.ui.base.mvp.BaseMvp;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -26,16 +25,22 @@ public abstract class BaseFragment extends Fragment {
 
     @LayoutRes protected abstract int fragmentLayout();
 
+    @Nullable BaseMvp.View callback;
+
     protected abstract boolean isRetainRequired();
 
     protected abstract void onFragmentCreated(View view, @Nullable Bundle savedInstanceState);
 
     @Override public void onAttach(Context context) {
         super.onAttach(context);
+        if (context instanceof BaseMvp.View) {
+            callback = (BaseMvp.View) context;
+        }
     }
 
     @Override public void onDetach() {
         super.onDetach();
+        callback = null;
     }
 
     @Override public void onSaveInstanceState(Bundle outState) {
@@ -68,19 +73,6 @@ public abstract class BaseFragment extends Fragment {
     @Override public void onDestroyView() {
         super.onDestroyView();
         if (unbinder != null) unbinder.unbind();
-    }
-
-    protected void showMessage(@StringRes int resId) {
-        showMessage(getString(resId));
-    }
-
-    protected void showMessage(String resId) {
-        if (!isSafe()) return;
-        if (getView() != null) {
-            Snackbar.make(getView(), resId, Snackbar.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(getContext(), resId, Toast.LENGTH_LONG).show();
-        }
     }
 
     protected boolean isSafe() {

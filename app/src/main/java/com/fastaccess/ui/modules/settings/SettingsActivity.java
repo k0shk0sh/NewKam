@@ -19,9 +19,4 @@ public class SettingsActivity extends BaseActivity {
     @Override protected boolean canBack() {
         return true;
     }
-
-    @Override protected boolean isSecured() {
-        return false;
-    }
-
 }

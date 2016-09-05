@@ -9,12 +9,23 @@
     android:theme="@style/ToolbarStyle"
     app:elevation="0dp">
 
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:background="?colorPrimary"
         app:layout_scrollFlags="scroll|enterAlways"/>
+
+    <ProgressBar
+        android:id="@+id/topProgress"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?colorPrimary"
+        android:indeterminate="true"
+        android:indeterminateBehavior="repeat"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,12 +51,12 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/spacing_xs_large"
+            android:layout_marginStart="@dimen/spacing_xs_large"
             android:layout_weight="1"
             android:background="@color/transparent"
             android:hint="@string/search"
             android:imeOptions="actionSearch"
-            android:layout_marginStart="@dimen/spacing_xs_large"
-            android:layout_marginEnd="@dimen/spacing_xs_large"
             android:singleLine="true"
             android:textColor="@color/white"
             android:textColorHint="@color/divider"/>

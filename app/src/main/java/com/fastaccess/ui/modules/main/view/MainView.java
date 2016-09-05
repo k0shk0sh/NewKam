@@ -16,6 +16,7 @@ import android.text.Editable;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.fastaccess.App;
 import com.fastaccess.R;
 import com.fastaccess.data.dao.AppsModel;
 import com.fastaccess.helper.ActivityHelper;
@@ -95,10 +96,6 @@ public class MainView extends BaseActivity implements MainMvp.View {
         return false;
     }
 
-    @Override protected boolean isSecured() {
-        return false;
-    }
-
     @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
@@ -115,6 +112,11 @@ public class MainView extends BaseActivity implements MainMvp.View {
             actionMode = startSupportActionMode(getPresenter());
             actionMode.setTitle(getString(R.string.backup) + " ( " + adapter.selectionSize() + " )");
         }
+    }
+
+    @Override protected void onDestroy() {
+        App.getInstance().getEventProvider().unregisterAll();// unregister everything since this activity is being destroyed.
+        super.onDestroy();
     }
 
     @Override public void closeOpenDrawer(boolean close) {

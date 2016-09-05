@@ -6,6 +6,7 @@ import com.fastaccess.helper.FileHelper;
 import com.fastaccess.helper.IconCache;
 import com.fastaccess.helper.PrefHelper;
 import com.fastaccess.helper.TypeFaceHelper;
+import com.fastaccess.provider.events.EventProvider;
 import com.fastaccess.ui.modules.main.view.MainView;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.Gson;
@@ -24,6 +25,7 @@ public class App extends Application {
     private static App instance;
     private FirebaseAnalytics firebaseAnalytics;
     private IconCache iconCache;
+    private EventProvider eventProvider = new EventProvider();
 
     @Override public void onCreate() {
         super.onCreate();
@@ -59,5 +61,9 @@ public class App extends Application {
             iconCache = new IconCache(this.getApplicationContext());
         }
         return iconCache;
+    }
+
+    public EventProvider getEventProvider() {
+        return eventProvider;
     }
 }

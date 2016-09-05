@@ -88,4 +88,22 @@ public class ApkHelper {
         }
         return false;
     }
+
+    public static void shareApk(@NonNull Context context, @NonNull File dest, @NonNull String appName) {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(dest));
+        intent.setType("application/vnd.android.package-archive");
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(Intent.createChooser(intent, "Share " + appName));
+    }
+
+    public static Intent getShareIntent(@NonNull File dest, @NonNull String appName) {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(dest));
+        intent.setType("application/vnd.android.package-archive");
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        return Intent.createChooser(intent, "Share " + appName);
+    }
 }

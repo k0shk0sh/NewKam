@@ -32,9 +32,9 @@
     <string name="extract">Extract</string>
     <string name="share">Share</string>
     <string name="menu">Menu</string>
-    <string name="uninstall_successfully">Application successfully uninstalled</string>
+    <string name="uninstall_successfully">Application successfully uninstalled.</string>
     <string name="app_file_error">Could not find application file.</string>
-    <string name="file_extracted_successfully">File Extracted Successfully to location:</string>
+    <string name="file_extracted_successfully">File Extracted Successfully.</string>
     <string name="open_folder">Open Folder</string>
     <string name="kam_folder">KAM Folder</string>
 </resources>

@@ -9,14 +9,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 
-import com.fastaccess.R;
 import com.fastaccess.data.dao.AppsModel;
-import com.fastaccess.helper.ApkHelper;
-import com.fastaccess.helper.FileHelper;
+import com.fastaccess.helper.Bundler;
+import com.fastaccess.provider.service.ExtractorService;
 import com.fastaccess.ui.base.mvp.presenter.BasePresenter;
 import com.fastaccess.ui.modules.details.model.AppDetailsMvp;
-
-import java.io.File;
 
 /**
  * Created by Kosh on 31 Aug 2016, 11:04 PM
@@ -45,35 +42,22 @@ public class AppDetailsPresenter extends BasePresenter<AppDetailsMvp.View> imple
     }
 
     @Override public void onShare(@NonNull Context context, @NonNull AppsModel app) {
-        File dest = FileHelper.generateFile(app.getAppName());
-        File src = getView().getApkFile();
-        if (src.exists()) {
-            boolean extracted = ApkHelper.extractApk(src, dest);
-            if (extracted) {
-                getView().onShowMessage(context.getString(R.string.file_extracted_successfully) + " ( " + dest.getPath() + " )");
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_SEND);
-                intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(dest));
-                intent.setType("application/vnd.android.package-archive");
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(Intent.createChooser(intent, "Share " + app.getAppName()));
-                return;
-            }
-        }
-        getView().onShowMessage(R.string.app_file_error);
+        Intent intent = new Intent(context, ExtractorService.class);
+        intent.putExtras(Bundler.start()
+                .put("src", getView().getApkFile())
+                .put("name", app.getAppName())
+                .put("isForShare", true)
+                .end());
+        context.startService(intent);
     }
 
     @Override public void onExtract(@NonNull Context context, @NonNull AppsModel app) {
-        File dest = FileHelper.generateFile(app.getAppName());
-        File src = getView().getApkFile();
-        if (src.exists()) {
-            boolean extracted = ApkHelper.extractApk(src, dest);
-            if (extracted) {
-                getView().onShowMessageToOpenFile(R.string.file_extracted_successfully);
-                return;
-            }
-        }
-        getView().onShowMessage(R.string.app_file_error);
+        Intent intent = new Intent(context, ExtractorService.class);
+        intent.putExtras(Bundler.start()
+                .put("src", getView().getApkFile())
+                .put("name", app.getAppName())
+                .end());
+        context.startService(intent);
     }
 
     @Override public void onUninstall(@NonNull Activity activity, @NonNull AppsModel app) {
