@@ -1,5 +1,7 @@
 package com.fastaccess.helper;
 
+import com.chrisplus.rootmanager.RootManager;
+
 import java.io.File;
 
 
@@ -21,10 +23,6 @@ public final class RootHelper {
         };
     }
 
-    public static boolean isDeviceRooted() {
-        return doesFileExists(KEY_SU);
-    }
-
     private static boolean doesFileExists(String value) {
         boolean result = false;
         for (String path : pathList) {
@@ -36,6 +34,14 @@ public final class RootHelper {
             }
         }
         return result;
+    }
+
+    public static boolean isDeviceRooted() {
+        return RootManager.getInstance().hasRooted() || doesFileExists(KEY_SU);
+    }
+
+    public static boolean obtainRoot() {
+        return RootManager.getInstance().obtainPermission();
     }
 }
 

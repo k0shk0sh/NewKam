@@ -3,13 +3,13 @@ package com.fastaccess.ui.modules.details.presenter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 
 import com.fastaccess.data.dao.AppsModel;
+import com.fastaccess.helper.ApkHelper;
 import com.fastaccess.helper.Bundler;
 import com.fastaccess.provider.service.ExtractorService;
 import com.fastaccess.ui.base.mvp.presenter.BasePresenter;
@@ -21,7 +21,7 @@ import com.fastaccess.ui.modules.details.model.AppDetailsMvp;
 
 public class AppDetailsPresenter extends BasePresenter<AppDetailsMvp.View> implements AppDetailsMvp.Presenter {
 
-    private static final int APP_UNINSTALL_RESULT = 100;
+    public static final int APP_UNINSTALL_RESULT = 100;
 
     protected AppDetailsPresenter(@NonNull AppDetailsMvp.View view) {
         super(view);
@@ -61,10 +61,7 @@ public class AppDetailsPresenter extends BasePresenter<AppDetailsMvp.View> imple
     }
 
     @Override public void onUninstall(@NonNull Activity activity, @NonNull AppsModel app) {
-        Intent intent = new Intent(Intent.ACTION_UNINSTALL_PACKAGE);
-        intent.setData(Uri.parse("package:" + app.getPackageName()));
-        intent.putExtra(Intent.EXTRA_RETURN_RESULT, true);
-        activity.startActivityForResult(intent, APP_UNINSTALL_RESULT);
+        ApkHelper.uninstallApp(activity, app.getPackageName());
     }
 
     @Override public void onBackup(@NonNull Context context, @NonNull AppsModel app) {

@@ -3,6 +3,8 @@ package com.fastaccess.provider.loader;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.support.v4.content.AsyncTaskLoader;
@@ -30,6 +32,7 @@ public class AppsLoader extends AsyncTaskLoader<List<AppsModel>> {
     }
 
     @Override public List<AppsModel> loadInBackground() {
+        List<AppsModel> entries = new ArrayList<>();
         Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
         mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
         List<ResolveInfo> list = packageManager.queryIntentActivities(mainIntent, 0);
@@ -38,7 +41,6 @@ public class AppsLoader extends AsyncTaskLoader<List<AppsModel>> {
         }
         Logger.e(list.size());
         Collections.sort(list, new ResolveInfo.DisplayNameComparator(packageManager));
-        List<AppsModel> entries = new ArrayList<>();
         String kamPackage = BuildConfig.APPLICATION_ID;
         for (ResolveInfo resolveInfo : list) {
             if (!resolveInfo.activityInfo.applicationInfo.packageName.equalsIgnoreCase(kamPackage)) {
@@ -99,6 +101,10 @@ public class AppsLoader extends AsyncTaskLoader<List<AppsModel>> {
 
     @Override public void forceLoad() {
         super.forceLoad();
+    }
+
+    private boolean isSystemPackage(PackageInfo pkgInfo) {
+        return ((pkgInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.fastaccess.helper;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -9,6 +10,8 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.chrisplus.rootmanager.RootManager;
+import com.chrisplus.rootmanager.container.Result;
 import com.fastaccess.ui.modules.details.view.PermissionsView;
 
 import org.apache.commons.io.FileUtils;
@@ -16,6 +19,8 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.fastaccess.ui.modules.details.presenter.AppDetailsPresenter.APP_UNINSTALL_RESULT;
 
 /**
  * Created by Kosh on 30 Aug 2016, 11:22 PM
@@ -25,31 +30,43 @@ public class ApkHelper {
 
     private ApkHelper() {}
 
-    public static void installApk(Context context, File filename) {
-        Intent intent = new Intent(Intent.ACTION_INSTALL_PACKAGE);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.setData(Uri.fromFile(filename));
-        context.startActivity(intent);
-    }
-
-    public static void installApk(Context context, String filename) {
-        installApk(context, new File(filename));
-    }
-
-    public static long getFolderSize(File f) {
-        long size = 0;
-        if (f.isDirectory()) {
-            for (File file : f.listFiles()) {
-                size += getFolderSize(file);
-            }
+    @Nullable public static Result installApk(@NonNull Context context, @NonNull File filename) {
+        if (RootHelper.isDeviceRooted()) {
+            return installSilently(filename);
         } else {
-            size = f.length();
+            Intent intent = new Intent(Intent.ACTION_INSTALL_PACKAGE);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setData(Uri.fromFile(filename));
+            context.startActivity(intent);
+            return null;
         }
-        return size;
     }
 
-    public static boolean isRooted() {
-        return RootHelper.isDeviceRooted();
+    public static Result installSilently(@NonNull File filename) {
+        return RootManager.getInstance().installPackage(filename.getPath());
+    }
+
+    public static Result installApk(@NonNull Context context, @NonNull String filename) {
+        return installApk(context, new File(filename));
+    }
+
+    public static Result uninstallApkSilently(@NonNull String apkPath) {
+        return RootManager.getInstance().uninstallPackage(apkPath);
+    }
+
+    public static Result uninstallApkSilently(@NonNull File apkPath) {
+        return uninstallApkSilently(apkPath.getPath());
+    }
+
+    public static void uninstallApp(@NonNull Activity context, @NonNull String packageName) {
+        Intent intent = new Intent(Intent.ACTION_UNINSTALL_PACKAGE);
+        intent.setData(Uri.parse("package:" + packageName));
+        intent.putExtra(Intent.EXTRA_RETURN_RESULT, true);
+        context.startActivityForResult(intent, APP_UNINSTALL_RESULT);
+    }
+
+    public static long getFolderSize(@NonNull File folder) {
+        return FileUtils.sizeOf(folder);
     }
 
     @Nullable public static PermissionInfo getPermissionInfo(@NonNull Context context, @NonNull String permission) {
@@ -61,7 +78,7 @@ public class ApkHelper {
         return null;
     }
 
-    @Nullable public static List<PermissionsView> getAppPermissions(Context context, String packageName) {
+    @Nullable public static List<PermissionsView> getAppPermissions(@NonNull Context context, String packageName) {
         try {
             List<PermissionsView> permissionsViews = new ArrayList<>();
             PackageInfo info = context.getPackageManager().getPackageInfo(packageName, PackageManager.GET_PERMISSIONS);

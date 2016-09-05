@@ -1,0 +1,7 @@
+<com.fastaccess.ui.widgets.SwitchView
+    android:id="@+id/showSystemApps"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/show_system_apps"
+    android:textColor="@color/white"/>

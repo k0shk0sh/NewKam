@@ -26,6 +26,7 @@ public class AppsModel implements Parcelable {
     @Expose private long firstInstallTime;
     @Expose private long lastUpdateTime;
     @Expose private String activityInfoName;
+    @Expose private boolean systemApp;
     private Bitmap bitmap;
     private ComponentName componentName;
     private List<String> permissions;
@@ -38,6 +39,25 @@ public class AppsModel implements Parcelable {
         this.packageName = info.activityInfo.applicationInfo.packageName;
         this.componentName = new ComponentName(packageName, info.activityInfo.name);
         this.activityInfoName = info.activityInfo.name;
+        try {
+            PackageInfo pi = pm.getPackageInfo(packageName, 0);
+            this.firstInstallTime = pi.firstInstallTime;
+            this.lastUpdateTime = pi.lastUpdateTime;
+            this.versionCode = Integer.toString(pi.versionCode);
+            this.versionName = pi.versionName;
+            this.filePath = info.activityInfo.applicationInfo.sourceDir;
+            this.appName = info.loadLabel(pm).toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        iconCache.getTitleAndIcon(this, info, labelCache);
+    }
+
+    public AppsModel(PackageManager pm, ResolveInfo info, IconCache iconCache, HashMap<Object, CharSequence> labelCache, boolean systemApp) {
+        this.packageName = info.activityInfo.applicationInfo.packageName;
+        this.componentName = new ComponentName(packageName, info.activityInfo.name);
+        this.activityInfoName = info.activityInfo.name;
+        this.systemApp = systemApp;
         try {
             PackageInfo pi = pm.getPackageInfo(packageName, 0);
             this.firstInstallTime = pi.firstInstallTime;
@@ -191,6 +211,7 @@ public class AppsModel implements Parcelable {
         dest.writeLong(this.firstInstallTime);
         dest.writeLong(this.lastUpdateTime);
         dest.writeString(this.activityInfoName);
+        dest.writeByte((byte) (this.systemApp ? 1 : 0));
     }
 
     public AppsModel() {
@@ -205,6 +226,7 @@ public class AppsModel implements Parcelable {
         this.firstInstallTime = in.readLong();
         this.lastUpdateTime = in.readLong();
         this.activityInfoName = in.readString();
+        this.systemApp = in.readByte() == 1;
     }
 
     public static final Creator<AppsModel> CREATOR = new Creator<AppsModel>() {
@@ -217,4 +239,11 @@ public class AppsModel implements Parcelable {
         }
     };
 
+    public boolean isSystemApp() {
+        return systemApp;
+    }
+
+    public void setSystemApp(boolean systemApp) {
+        this.systemApp = systemApp;
+    }
 }
