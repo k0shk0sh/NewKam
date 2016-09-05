@@ -3,8 +3,6 @@ package com.fastaccess.provider.loader;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.support.v4.content.AsyncTaskLoader;
@@ -102,9 +100,4 @@ public class AppsLoader extends AsyncTaskLoader<List<AppsModel>> {
     @Override public void forceLoad() {
         super.forceLoad();
     }
-
-    private boolean isSystemPackage(PackageInfo pkgInfo) {
-        return ((pkgInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0);
-    }
-
 }
