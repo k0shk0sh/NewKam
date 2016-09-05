@@ -11,6 +11,7 @@ import android.os.Parcelable;
 import com.fastaccess.helper.IconCache;
 import com.google.gson.annotations.Expose;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -245,5 +246,13 @@ public class AppsModel implements Parcelable {
 
     public void setSystemApp(boolean systemApp) {
         this.systemApp = systemApp;
+    }
+
+    public static Comparator<AppsModel> sortApps() {
+        return new Comparator<AppsModel>() {
+            @Override public int compare(AppsModel one, AppsModel two) {
+                return one.getAppName().compareTo(two.getAppName());
+            }
+        };
     }
 }
