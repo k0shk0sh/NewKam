@@ -29,7 +29,6 @@ public final class RootHelper {
             File file = new File(path + "/" + value);
             result = file.exists();
             if (result) {
-                Logger.e(path + " contains su binary");
                 break;
             }
         }

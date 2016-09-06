@@ -3,7 +3,6 @@ package com.fastaccess.ui.base.mvp.presenter;
 import android.support.annotation.NonNull;
 
 import com.fastaccess.App;
-import com.fastaccess.helper.Logger;
 import com.fastaccess.ui.base.mvp.BaseMvp;
 
 /**
@@ -18,7 +17,6 @@ public class BasePresenter<V> implements BaseMvp.Presenter<V> {
 
     protected BasePresenter(@NonNull V view) {
         attachView(view);
-        Logger.e(view.getClass());
     }
 
     @Override public void attachView(@NonNull V view) {

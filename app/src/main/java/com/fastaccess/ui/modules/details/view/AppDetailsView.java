@@ -111,11 +111,6 @@ public class AppDetailsView extends BaseActivity implements AppDetailsMvp.View {
         }
     }
 
-    @Override protected void onDestroy() {
-        appbar.removeOnOffsetChangedListener(getPresenter());
-        super.onDestroy();
-    }
-
     @Override public void onReceivedBundle(@Nullable AppsModel model) {
         if (model == null) {
             finish();
@@ -128,7 +123,6 @@ public class AppDetailsView extends BaseActivity implements AppDetailsMvp.View {
     @Override public void onInitViews() {
         collapsingToolbarLayout.setTitleEnabled(true);
         setTitle("");
-        appbar.addOnOffsetChangedListener(getPresenter());
         Bitmap bitmap = App.getInstance().getIconCache().getIcon(app.getPackageName(), app.getActivityInfoName());
         appIcon.setImageBitmap(bitmap);
         appName.setText(app.getAppName());
@@ -157,6 +151,16 @@ public class AppDetailsView extends BaseActivity implements AppDetailsMvp.View {
     @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         getPresenter().onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override protected void onResume() {
+        super.onResume();
+        appbar.addOnOffsetChangedListener(getPresenter());
+    }
+
+    @Override protected void onPause() {
+        appbar.removeOnOffsetChangedListener(getPresenter());
+        super.onPause();
     }
 
     /**

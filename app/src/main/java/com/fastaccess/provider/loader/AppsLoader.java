@@ -11,7 +11,6 @@ import com.fastaccess.BuildConfig;
 import com.fastaccess.data.dao.AppsModel;
 import com.fastaccess.helper.ApkHelper;
 import com.fastaccess.helper.IconCache;
-import com.fastaccess.helper.Logger;
 import com.fastaccess.provider.receiver.ApplicationsReceiver;
 
 import java.util.ArrayList;
@@ -39,7 +38,6 @@ public class AppsLoader extends AsyncTaskLoader<List<AppsModel>> {
             if (list == null || list.isEmpty()) {
                 return new ArrayList<>();
             }
-            Logger.e(list.size());
             Collections.sort(list, new ResolveInfo.DisplayNameComparator(packageManager));
             String kamPackage = BuildConfig.APPLICATION_ID;
             for (ResolveInfo resolveInfo : list) {
@@ -48,7 +46,6 @@ public class AppsLoader extends AsyncTaskLoader<List<AppsModel>> {
                     entries.add(model);
                 }
             }
-            Logger.e("final list size : " + entries.size());
             return entries;
         } catch (Exception e) {//catching TransactionTooLargeException,
             e.printStackTrace();

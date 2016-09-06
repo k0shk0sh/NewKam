@@ -16,6 +16,10 @@ public class NotificationHelper {
     public static final int NOTIFICATION_ID = 20111;
 
     public static void notifyShort(@NonNull Context context, @NonNull String title, @NonNull String msg, @DrawableRes int iconId) {
+        notifyShort(context, title, msg, iconId, NOTIFICATION_ID);
+    }
+
+    public static void notifyShort(@NonNull Context context, @NonNull String title, @NonNull String msg, @DrawableRes int iconId, int nId) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Notification notification = new NotificationCompat.Builder(context)
                 .setAutoCancel(true)
@@ -24,11 +28,16 @@ public class NotificationHelper {
                 .setContentText(msg)
                 .setSmallIcon(iconId)
                 .build();
-        notificationManager.notify(NOTIFICATION_ID, notification);
+        notificationManager.notify(nId, notification);
     }
 
     public static void notifyShort(@NonNull Context context, @NonNull String title, String msg, @DrawableRes int iconId,
                                    @NonNull NotificationCompat.Action action) {
+        notifyShort(context, title, msg, iconId, action, NOTIFICATION_ID);
+    }
+
+    public static void notifyShort(@NonNull Context context, @NonNull String title, String msg, @DrawableRes int iconId,
+                                   @NonNull NotificationCompat.Action action, int nId) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Notification notification = new NotificationCompat.Builder(context)
                 .setAutoCancel(true)
@@ -38,7 +47,7 @@ public class NotificationHelper {
                 .setSmallIcon(iconId)
                 .addAction(action)
                 .build();
-        notificationManager.notify(NOTIFICATION_ID, notification);
+        notificationManager.notify(nId, notification);
     }
 
     public static void notifyBig(@NonNull Context context, @NonNull String title, @NonNull String msg, @DrawableRes int iconId) {
@@ -72,5 +81,10 @@ public class NotificationHelper {
         int finalId = id == 0 ? NOTIFICATION_ID : id;
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancel(finalId);
+    }
+
+    public static void cancelAllNotifications(@NonNull Context context) {
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancelAll();
     }
 }

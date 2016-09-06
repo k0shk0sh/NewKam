@@ -15,6 +15,10 @@ public interface BaseMvp {
         void onShowMessage(@NonNull String msg);
 
         void onShowHideProgress(boolean show);
+
+        void registerForEvent(@NonNull String key, @NonNull Object object);
+
+        void unRegisterForEvent(@NonNull String key);
     }
 
     interface Presenter<V> {

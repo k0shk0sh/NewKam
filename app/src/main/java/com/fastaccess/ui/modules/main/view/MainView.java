@@ -22,7 +22,6 @@ import com.fastaccess.data.dao.AppsModel;
 import com.fastaccess.helper.ActivityHelper;
 import com.fastaccess.helper.AnimHelper;
 import com.fastaccess.helper.Bundler;
-import com.fastaccess.helper.Logger;
 import com.fastaccess.ui.adapter.AppsAdapter;
 import com.fastaccess.ui.base.BaseActivity;
 import com.fastaccess.ui.modules.details.view.AppDetailsView;
@@ -134,20 +133,15 @@ public class MainView extends BaseActivity implements MainMvp.View {
     }
 
     @Override public void onStartLoading() {
-        Logger.e("called");
         recycler.showProgress(progressBar);
     }
 
     @Override public void onAppsLoaded(@Nullable List<AppsModel> data) {
         recycler.hideProgress(progressBar);
         adapter.insertItems(data);
-        if (data != null) {
-            Logger.e("called", data.size());
-        }
     }
 
     @Override public void onLoaderReset() {
-        Logger.e("called");
         recycler.hideProgress(progressBar);
         adapter.clear();
     }
@@ -185,7 +179,6 @@ public class MainView extends BaseActivity implements MainMvp.View {
         List<AppsModel> data = adapter.getData();
         for (int i = 0; i < data.size(); i++) {
             AppsModel model = data.get(i);
-            Logger.e(i, model.getComponentName().toShortString());
             if (!adapter.isSelected(model.getComponentName().toShortString())) adapter.select(model.getComponentName().toShortString(), i, true);
         }
         if (actionMode == null) {
@@ -200,6 +193,10 @@ public class MainView extends BaseActivity implements MainMvp.View {
     }
 
     @Override public void onOpenDetails(@NonNull View v, @NonNull AppsModel item) {
+        if (v.getId() != R.id.appIcon) {
+            v.findViewById(R.id.appIcon).callOnClick();
+            return;
+        }
         String transitionName = "appIcon";//hardcoded!!
         Intent intent = new Intent(this, AppDetailsView.class);
         intent.putExtras(Bundler.start().put("app", item).end());

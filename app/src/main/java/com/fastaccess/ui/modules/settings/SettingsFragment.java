@@ -5,12 +5,17 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
+import android.text.format.Formatter;
 import android.view.View;
 
 import com.fastaccess.BuildConfig;
 import com.fastaccess.R;
+import com.fastaccess.helper.ApkHelper;
+import com.fastaccess.helper.FileHelper;
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
+
+import java.io.File;
 
 /**
  * Created by Kosh on 31 Aug 2016, 11:46 AM
@@ -21,7 +26,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         addPreferencesFromResource(R.xml.general_settings);
         findPreference("libraries").setOnPreferenceClickListener(this);
         findPreference("version").setSummary(BuildConfig.VERSION_NAME);
-        findPreference("size").setSummary("20MB");
+        findPreference("size").setSummary(Formatter.formatFileSize(getContext(), ApkHelper.getFolderSize(new File(FileHelper.getBaseFolderName()))));
     }
 
     @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {

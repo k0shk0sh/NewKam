@@ -17,18 +17,13 @@ public class EventProvider {
     private final Map<String, Object> events = new HashMap<>();
 
     public synchronized void register(@NonNull String key, @NonNull Object object) {
-        if (events.containsKey(key)) {
-            unregister(key);
-        }
         events.put(key, object);
-        eventBus.register(object);
+        if (!eventBus.isRegistered(object)) eventBus.register(object);
     }
 
     public synchronized void unregister(@NonNull String key) {
         if (isRegistered(key)) {
-            if (eventBus.isRegistered(events.get(key))) {
-                eventBus.unregister(events.get(key));
-            }
+            eventBus.unregister(events.get(key));
         }
         events.remove(key);
     }

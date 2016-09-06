@@ -17,17 +17,12 @@ import android.widget.ProgressBar;
 import com.fastaccess.App;
 import com.fastaccess.BuildConfig;
 import com.fastaccess.R;
-import com.fastaccess.data.dao.ExtractorEventModel;
-import com.fastaccess.helper.ApkHelper;
 import com.fastaccess.helper.AppHelper;
+import com.fastaccess.helper.Logger;
 import com.fastaccess.helper.ViewHelper;
-import com.fastaccess.kam.filebrowser.view.FilePickerDialog;
 import com.fastaccess.permission.base.PermissionHelper;
 import com.fastaccess.ui.base.mvp.BaseMvp;
 import com.fastaccess.ui.modules.permissions.PermissionActivity;
-
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -82,16 +77,6 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseMvp.
         return super.onOptionsItemSelected(item);
     }
 
-    @Override protected void onStart() {
-        super.onStart();
-        App.getInstance().getEventProvider().register(this.getClass().getSimpleName(), this);
-    }
-
-    @Override protected void onStop() {
-        App.getInstance().getEventProvider().unregister(this.getClass().getSimpleName());
-        super.onStop();
-    }
-
     @Override public void onShowMessage(@StringRes int resId) {
         onShowMessage(getString(resId));
     }
@@ -108,30 +93,15 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseMvp.
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN) public void onExtractionEvent(ExtractorEventModel model) {
-        onShowHideProgress(model.isShowHideProgress());
-        if (model.isShowHideProgress()) return;
-        if (model.isExtracted()) {
-            if (model.isForShare()) {
-                ApkHelper.shareApk(this, model.getDestFile(), model.getAppName());
-                return;
-            }
-            onShowMessageToOpenFile(R.string.file_extracted_successfully);
-        } else {
-            onShowMessage(R.string.app_file_error);
-        }
+    @Override public void registerForEvent(@NonNull String key, @NonNull Object object) {
+        Logger.e(key);
+        App.getInstance().getEventProvider().register(key, object);
+
     }
 
-    protected void onShowMessageToOpenFile(int resId) {
-        View view = toolbar == null ? findViewById(android.R.id.content) : toolbar;
-        Snackbar.make(view, resId, Snackbar.LENGTH_LONG)
-                .setAction(getString(R.string.open_folder), new View.OnClickListener() {
-                    @Override public void onClick(View v) {
-                        FilePickerDialog dialog = new FilePickerDialog();
-                        dialog.show(getSupportFragmentManager(), "FilePickerDialog");
-                    }
-                })
-                .show();
+    @Override public void unRegisterForEvent(@NonNull String key) {
+        Logger.e(key);
+        App.getInstance().getEventProvider().unregister(key);
     }
 
     private void setupToolbarAndStatusBar() {
