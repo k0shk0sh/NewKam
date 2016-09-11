@@ -38,4 +38,10 @@
     <string name="open_folder">Open Folder</string>
     <string name="kam_folder">KAM Folder</string>
     <string name="show_system_apps">Show System Apps</string>
+    <string name="auto_backup_apps">Auto Backup New Installed Apps</string>
+    <string name="general_settings">General Settings</string>
+    <string name="kam_folder_size">KAM Folder Size</string>
+    <string name="app_version">Application Version</string>
+    <string name="libs">Open Source Libraries</string>
+    <string name="about">About</string>
 </resources>

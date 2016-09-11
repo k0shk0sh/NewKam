@@ -2,10 +2,12 @@ package com.fastaccess.helper;
 
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 
 /**
@@ -16,10 +18,20 @@ public class NotificationHelper {
     public static final int NOTIFICATION_ID = 20111;
 
     public static void notifyShort(@NonNull Context context, @NonNull String title, @NonNull String msg, @DrawableRes int iconId) {
-        notifyShort(context, title, msg, iconId, NOTIFICATION_ID);
+        notifyShort(context, title, msg, iconId, NOTIFICATION_ID, null);
+    }
+
+    public static void notifyShort(@NonNull Context context, @NonNull String title, @NonNull String msg, @DrawableRes int iconId,
+                                   @NonNull PendingIntent pendingIntent) {
+        notifyShort(context, title, msg, iconId, NOTIFICATION_ID, pendingIntent);
     }
 
     public static void notifyShort(@NonNull Context context, @NonNull String title, @NonNull String msg, @DrawableRes int iconId, int nId) {
+        notifyShort(context, title, msg, iconId, nId, null);
+    }
+
+    public static void notifyShort(@NonNull Context context, @NonNull String title, @NonNull String msg, @DrawableRes int iconId, int nId,
+                                   @Nullable PendingIntent pendingIntent) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Notification notification = new NotificationCompat.Builder(context)
                 .setAutoCancel(true)
@@ -27,6 +39,7 @@ public class NotificationHelper {
                 .setContentTitle(title)
                 .setContentText(msg)
                 .setSmallIcon(iconId)
+                .setContentIntent(pendingIntent)
                 .build();
         notificationManager.notify(nId, notification);
     }
@@ -46,6 +59,7 @@ public class NotificationHelper {
                 .setContentText(msg)
                 .setSmallIcon(iconId)
                 .addAction(action)
+                .setContentIntent(action.actionIntent)
                 .build();
         notificationManager.notify(nId, notification);
     }

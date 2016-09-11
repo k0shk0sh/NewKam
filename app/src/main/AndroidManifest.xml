@@ -41,5 +41,13 @@
             </intent-filter>
         </service>
         <service android:name=".provider.service.ExtractorService"/>
+
+        <receiver
+            android:name=".provider.receiver.StopNotificationReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.fast.access.kam.STOP_NOTIFICATION"/>
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>
