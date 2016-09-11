@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="?android:listPreferredItemHeight"
-    android:background="@color/colorHeader"
+    android:background="#FF2A456B"
     android:orientation="horizontal">
 
     <ImageView
@@ -13,12 +13,13 @@
         android:paddingEnd="?android:listPreferredItemPaddingEnd"
         android:paddingStart="?android:listPreferredItemPaddingStart"
         android:scaleType="centerInside"
-        android:src="@mipmap/ic_directory_parent"/>
+        android:src="@drawable/ic_directory_parent"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView

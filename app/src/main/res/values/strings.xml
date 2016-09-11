@@ -44,4 +44,5 @@
     <string name="app_version">Application Version</string>
     <string name="libs">Open Source Libraries</string>
     <string name="about">About</string>
+    <string name="open_source">Check KAM source code</string>
 </resources>

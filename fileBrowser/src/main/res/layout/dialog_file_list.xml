@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ListView
+<android.support.v7.widget.RecyclerView
     android:id="@+id/fileList"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center_horizontal"
-    android:dividerHeight="1dp"
-    android:drawSelectorOnTop="true"
-    android:listSelector="?android:selectableItemBackground"
-    tools:listitem="@layout/dialog_file_list_item"/>
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+    tools:listitem="@layout/dialog_file_list_item"
+    xmlns:app="http://schemas.android.com/apk/res-auto"/>
 

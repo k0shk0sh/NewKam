@@ -16,7 +16,7 @@
         android:paddingEnd="?android:listPreferredItemPaddingEnd"
         android:paddingStart="?android:listPreferredItemPaddingStart"
         android:scaleType="centerCrop"
-        tools:src="@mipmap/ic_type_file"/>
+        tools:src="@drawable/ic_type_file"/>
 
     <LinearLayout
         android:layout_width="0dp"
@@ -54,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:minHeight="34dp"
+        android:background="?selectableItemBackgroundBorderless"
         android:paddingEnd="?android:listPreferredItemPaddingEnd"
         android:paddingStart="?android:listPreferredItemPaddingStart"
         android:scaleType="centerCrop"

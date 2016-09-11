@@ -1,7 +1,9 @@
 package com.fastaccess.ui.modules.settings;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
@@ -12,6 +14,7 @@ import com.fastaccess.BuildConfig;
 import com.fastaccess.R;
 import com.fastaccess.helper.ApkHelper;
 import com.fastaccess.helper.FileHelper;
+import com.fastaccess.helper.ViewHelper;
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
 
@@ -27,6 +30,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         findPreference("libraries").setOnPreferenceClickListener(this);
         findPreference("version").setSummary(BuildConfig.VERSION_NAME);
         findPreference("size").setSummary(Formatter.formatFileSize(getContext(), ApkHelper.getFolderSize(new File(FileHelper.getBaseFolderName()))));
+        findPreference("sourceCode").setOnPreferenceClickListener(this);
     }
 
     @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -38,6 +42,12 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
     @Override public boolean onPreferenceClick(Preference preference) {
         if (preference.getKey().equalsIgnoreCase("libraries")) {
             openLibs();
+            return true;
+        } else if (preference.getKey().equalsIgnoreCase("sourceCode")) {
+            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+            builder.setToolbarColor(ViewHelper.getPrimaryColor(getContext()));
+            CustomTabsIntent tabsIntent = builder.build();
+            tabsIntent.launchUrl(getActivity(), Uri.parse("https://github.com/k0shk0sh/NewKam"));
             return true;
         }
         return false;

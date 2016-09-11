@@ -19,11 +19,11 @@ package com.fastaccess.kam.filebrowser.controller.adapters;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.RecyclerView;
 import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,7 +38,7 @@ import java.util.List;
  * <p> Created by Angad Singh on 09-07-2016. </p>
  */
 
-public class FileListAdapter extends BaseAdapter {
+public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHolder> {
     private ArrayList<FileListItem> listItem;
     private Context context;
 
@@ -47,32 +47,17 @@ public class FileListAdapter extends BaseAdapter {
         this.context = context;
     }
 
-    @Override public int getCount() {
-        return listItem.size();
+
+    @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.dialog_file_list_item, parent, false));
     }
 
-    @Override public FileListItem getItem(int i) {
-        return listItem.get(i);
-    }
-
-    @Override public long getItemId(int i) {
-        return i;
-    }
-
-    @Override public View getView(final int i, View view, ViewGroup viewGroup) {
-        final ViewHolder holder;
-        if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.dialog_file_list_item, viewGroup, false);
-            holder = new ViewHolder(view);
-            view.setTag(holder);
-        } else {
-            holder = (ViewHolder) view.getTag();
-        }
-        final FileListItem item = listItem.get(i);
+    @Override public void onBindViewHolder(ViewHolder holder, int position) {
+        final FileListItem item = listItem.get(position);
         if (item.isDirectory()) {
-            holder.type_icon.setImageResource(R.mipmap.ic_type_folder);
+            holder.type_icon.setImageResource(R.drawable.ic_type_folder);
         } else {
-            holder.type_icon.setImageResource(R.mipmap.ic_type_file);
+            holder.type_icon.setImageResource(R.drawable.ic_type_file);
         }
         holder.type_icon.setContentDescription(item.getFilename());
         holder.name.setText(item.getFilename());
@@ -98,7 +83,10 @@ public class FileListAdapter extends BaseAdapter {
         } else {
             holder.deleteFolder.setVisibility(View.GONE);
         }
-        return view;
+    }
+
+    @Override public int getItemCount() {
+        return listItem.size();
     }
 
     public void insert(List<FileListItem> itemList) {
@@ -107,13 +95,14 @@ public class FileListAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    private static class ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView type_icon;
         ImageView deleteFolder;
         TextView name;
         TextView type;
 
         ViewHolder(View itemView) {
+            super(itemView);
             name = (TextView) itemView.findViewById(R.id.fname);
             type = (TextView) itemView.findViewById(R.id.ftype);
             type_icon = (ImageView) itemView.findViewById(R.id.image_type);
