@@ -32,6 +32,7 @@ import com.fastaccess.kam.filebrowser.model.FileListItem;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p> Created by Angad Singh on 09-07-2016. </p>
@@ -92,7 +93,18 @@ public class FileListAdapter extends BaseAdapter {
                         .show();
             }
         });
+        if (item.getFilename().endsWith(".apk")) {
+            holder.deleteFolder.setVisibility(View.VISIBLE);
+        } else {
+            holder.deleteFolder.setVisibility(View.GONE);
+        }
         return view;
+    }
+
+    public void insert(List<FileListItem> itemList) {
+        listItem.clear();
+        listItem.addAll(itemList);
+        notifyDataSetChanged();
     }
 
     private static class ViewHolder {

@@ -16,6 +16,8 @@
 
 package com.fastaccess.kam.filebrowser.utils;
 
+import android.webkit.MimeTypeMap;
+
 import com.fastaccess.kam.filebrowser.model.FileListItem;
 
 import java.io.File;
@@ -50,4 +52,15 @@ public class Utility {
         }
         return internalList;
     }
+
+    public static ArrayList<FileListItem> getFileList(File inter, ExtensionFilter filter) {
+        ArrayList<FileListItem> internalList = new ArrayList<>();
+        return prepareFileListEntries(internalList, inter, filter);
+    }
+
+    public static String extension(String file) {
+        return MimeTypeMap.getFileExtensionFromUrl(file);
+    }
+
+
 }
